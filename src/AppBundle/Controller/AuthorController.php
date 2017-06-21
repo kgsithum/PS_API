@@ -16,7 +16,7 @@ class AuthorController extends FOSRestController
 {
     
 	/**
-     * @Rest\Get("/author/")
+     * @Rest\Get("/author")
      */
     public function readAction()
     {
@@ -24,7 +24,7 @@ class AuthorController extends FOSRestController
         if ($restresult === null) {
           return new View("there are no author exist", Response::HTTP_NOT_FOUND);
         }
-		$view = $this->view($restresult, Response::HTTP_INTERNAL_SERVER_ERROR);
+		    $view = $this->view($restresult, Response::HTTP_OK);
         return $view;
     }
 	
@@ -38,17 +38,18 @@ class AuthorController extends FOSRestController
        if ($singleresult === null) {
         return new View("author not found", Response::HTTP_NOT_FOUND);
        }
-       return $singleresult;
+       $view = $this->view($singleresult, Response::HTTP_OK);
+       return $view;
     }
 	
 	
 	/**
-	 * @Rest\Post("/author/")
+	 * @Rest\Post("/author")
 	 */
 	public function postAction(Request $request)
 	{
 	  $data = new Author;
-	  $name = $request->post('name');
+	  $name = $request->get('name');
 	  
 		if(empty($name))
 		{
@@ -59,7 +60,9 @@ class AuthorController extends FOSRestController
 	 $em = $this->getDoctrine()->getManager();
 	 $em->persist($data);
 	 $em->flush();
-	 return new View("Author Added Successfully", Response::HTTP_OK);
+	 
+   $view = $this->view("Author Added Successfully", Response::HTTP_OK);
+   return $view;
 	}
 	
 	
