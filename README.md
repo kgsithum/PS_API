@@ -42,6 +42,15 @@ crontab -e
 
 ## API Documentation  
 
+### Author  
+
+#### Author - Get all authors
+
+##### Method : GET  
+```
+/author  
+```
+
 
 
 
