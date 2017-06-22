@@ -40,6 +40,14 @@ crontab -e
 00 23 * * * /var/backup/backup.sh
 ```
 
+### Run API  
+Open terminal and locate to API folder.
+```
+php bin/console server:run
+```
+
+Use Postman which is a powerful HTTP client for testing web services to test API.
+
 ## API Documentation  
 
 ### Author  
@@ -84,6 +92,25 @@ HTTP/1.1 200 OK
       "name": "Andrew"
     }
 ```
+
+#### Author - Create author
+
+###### Method : POST  
+```
+/author  
+```
+###### Parameters
+```
+name => String - Author Name
+```
+###### Success-Response
+```
+HTTP/1.1 200 OK
+    {
+      "Author Added Successfully"
+    }
+```
+
 
 ### Article  
 
@@ -137,6 +164,67 @@ HTTP/1.1 200 OK
       "summary": "Some content...",
       "url": "/article/1",
       "createdAt": "2017-03-20"
+    }
+```
+
+#### Article - Create article
+
+###### Method : POST  
+```
+/article
+```
+###### Parameters
+```
+author_id => Integer -  Author ID
+title => String - Article Title
+url => String - Article URL
+content => Text - Article Content
+```
+###### Success-Response
+```
+HTTP/1.1 200 OK
+    {
+      "Article Added Successfully"
+    }
+```
+
+#### Article - Update article
+
+###### Method : PUT  
+```
+/article/:id
+```
+###### Parameters
+```
+id => Integer - Article ID
+author_id => Integer -  Author ID
+title => String - Article Title
+url => String - Article URL
+content => Text - Article Content
+```
+###### Success-Response
+```
+HTTP/1.1 200 OK
+    {
+      "Article Updated Successfully"
+    }
+```
+
+#### Article - Delete article
+
+###### Method : DELETE  
+```
+/article/:id
+```
+###### Parameters
+```
+id => Integer - Article ID
+```
+###### Success-Response
+```
+HTTP/1.1 200 OK
+    {
+      "Article Deleted Successfully"
     }
 ```
 
