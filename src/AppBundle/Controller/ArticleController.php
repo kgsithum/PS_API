@@ -21,8 +21,8 @@ class ArticleController extends FOSRestController
     public function readAction()
     {
       $restresult = $this->getDoctrine()->getRepository('AppBundle:Article')->findAll();
-        if ($restresult === null) {
-          return new View("there are no article found.", Response::HTTP_NOT_FOUND);
+        if (empty($restresult)) {
+          return new View("there are no articles found.", Response::HTTP_NOT_FOUND);
         }
 		    $view = $this->view($restresult, Response::HTTP_OK);
         return $view;
@@ -48,7 +48,48 @@ class ArticleController extends FOSRestController
 	 */
 	public function postAction(Request $request)
 	{
-	  
+        $data = new Article;
+        $author_id = $request->get('author_id');
+        $title = $request->get('title');
+        $url = $request->get('url');
+        $content = $request->get('content');
+        
+        //validations
+        if($author_id ===null)
+        {
+            return new View("Please enter Author ID.", Response::HTTP_NOT_ACCEPTABLE); 
+        }else{
+
+            //check valid author id
+            $validAuthor = $this->getDoctrine()->getRepository('AppBundle:Author')->find($author_id);
+            if ($validAuthor === null) {
+                return new View("Please enter valid Author ID.", Response::HTTP_NOT_ACCEPTABLE);
+            }
+            
+        } 
+
+        if($title ===null)
+        {
+            return new View("Please enter Title.", Response::HTTP_NOT_ACCEPTABLE); 
+        }
+        if($url ===null)
+        {
+            return new View("Please enter URL.", Response::HTTP_NOT_ACCEPTABLE); 
+        }
+        $data->setTitle($title);
+        $data->setAuthorId($title);
+        $data->setUrl($url);
+        $data->setContent($content);
+
+        $currenttime = date("Y-m-d H:i:s");
+        $data->setCreatedAt($currenttime);
+        $data->setUpdatedAt($currenttime);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($data);
+        
+        $view = $this->view("Article Added Successfully", Response::HTTP_OK);
+        return $view;
 	}
 	
 	
