@@ -46,12 +46,99 @@ crontab -e
 
 #### Author - Get all authors
 
-##### Method : GET  
+###### Method : GET  
 ```
 /author  
 ```
+###### Parameters
+```
+```
+###### Success-Response
+```
+HTTP/1.1 200 OK
+    {
+      "id": 1,
+      "name": "Andrew",
+    },
+    {
+      "id": 2,
+      "name": "Andrew 2"
+    }
+```
 
+#### Author - Get single author
 
+###### Method : GET  
+```
+/author/:id  
+```
+###### Parameters
+```
+id => Integer - Author ID
+```
+###### Success-Response
+```
+HTTP/1.1 200 OK
+    {
+      "id": 1,
+      "name": "Andrew"
+    }
+```
+
+### Article  
+
+#### Article - Get all articles
+
+###### Method : GET  
+```
+/article  
+```
+###### Parameters
+```
+```
+###### Success-Response
+```
+HTTP/1.1 200 OK
+    {
+      "id": 1,
+      "title": "Anewarticle",
+      "author": 1,
+      "summary": "Some content...",
+      "url": "/article/1",
+      "createdAt": "2017-03-20"
+    },
+    {
+      "id": 2,
+      "title": "Anewarticle",
+      "author": 2,
+      "summary": "Some content...",
+      "url": "/article/2",
+      "createdAt": "2017-03-20"
+    }
+```
+
+#### Article - Get single article
+
+###### Method : GET  
+```
+/article/:id  
+```
+###### Parameters
+```
+id => Integer - Article ID
+```
+###### Success-Response
+```
+HTTP/1.1 200 OK
+    {
+      "id": 1,
+      "title": "Anewarticle",
+      "author": 1,
+      "summary": "Some content...",
+      "url": "/article/1",
+      "createdAt": "2017-03-20"
+    }
+```
 
 
 ## Acknowledgments
