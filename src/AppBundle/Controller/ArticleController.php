@@ -150,6 +150,25 @@ class ArticleController extends FOSRestController
         $view = $this->view("Article Updated Successfully", Response::HTTP_OK);
         return $view;
 	}
+
+
+    /**
+     * @Rest\Delete("/article/{id}")
+     */
+    public function deleteAction($id)
+    {
+        $data = new Article;
+        $em = $this->getDoctrine()->getManager();
+        $article = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
+        if (empty($article)) {
+            return new View("Article not found", Response::HTTP_NOT_FOUND);
+        }
+        else {
+            $em->remove($article);
+            $em->flush();
+        }
+        return new View("Article deleted successfully", Response::HTTP_OK);
+    }
 	
 	
 	
