@@ -35,6 +35,8 @@ class ArticleController extends FOSRestController
     public function readoneAction($id)
     {
       $singleresult = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
+
+      
        if ($singleresult === null) {
         return new View("article not found", Response::HTTP_NOT_FOUND);
        }
