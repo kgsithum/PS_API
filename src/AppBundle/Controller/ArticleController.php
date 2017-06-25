@@ -20,7 +20,18 @@ class ArticleController extends FOSRestController
      */
     public function readAction()
     {
-      $restresult = $this->getDoctrine()->getRepository('AppBundle:Article')->findAll();
+      //$restresult = $this->getDoctrine()->getRepository('AppBundle:Article')->findAll();
+
+      $em = $this->getDoctrine()->getManager();
+      $query = $em->createQuery(
+            'SELECT a.id,a.title,ar.name as author,a.content as summary,a.url,a.createdAt
+            FROM AppBundle:Article a 
+            INNER JOIN AppBundle:Author ar
+            WHERE a.id != :id'            
+        )->setParameter('id', "");
+
+        $restresult = $query->getResult();
+
         if (empty($restresult)) {
           return new View("there are no articles found.", Response::HTTP_NOT_FOUND);
         }
@@ -37,7 +48,17 @@ class ArticleController extends FOSRestController
      */
     public function readoneAction($id)
     {
-      $singleresult = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
+      //$singleresult = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
+      $em = $this->getDoctrine()->getManager();
+      $query = $em->createQuery(
+            'SELECT a.id,a.title,ar.name as author,a.content,a.url,a.createdAt
+            FROM AppBundle:Article a 
+            INNER JOIN AppBundle:Author ar             
+            WHERE a.id = :id'            
+        )->setParameter('id', $id);
+
+        $singleresult = $query->getResult();
+
 
 
        if ($singleresult === null) {
