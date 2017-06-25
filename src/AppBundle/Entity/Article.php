@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Author;
 
 /**
  * Article
@@ -22,11 +23,11 @@ class Article
     private $id;
 
     /**
-     * @var int
      *
-     * @ORM\Column(name="author_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Author")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $authorId;
+    private $author;
 
     /**
      * @var string
@@ -77,13 +78,12 @@ class Article
     /**
      * Set authorId
      *
-     * @param integer $authorId
+     * @param Author $author
      *
-     * @return Article
      */
-    public function setAuthorId($authorId)
+    public function setAuthorId(Author $author)
     {
-        $this->authorId = $authorId;
+        $this->author = $author;
 
         return $this;
     }
@@ -91,11 +91,11 @@ class Article
     /**
      * Get authorId
      *
-     * @return int
+     * @return Author
      */
-    public function getAuthorId()
+    public function getAuthor()
     {
-        return $this->authorId;
+        return $this->author;
     }
 
     /**
