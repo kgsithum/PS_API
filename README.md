@@ -29,8 +29,8 @@ Install Data Base
 Get petstock.sql file from SQL folder. Create database "petstock" in mysql and import the petstock.sql file to that created database. Update database with following in your terminal
 ```
 php bin/console doctrine:schema:update --dump-sql  
+```  
 Proper way to Installing data base is creating migration file usin DoctrineMigrationsBundle.
-```
 
 Install Backup script  
 
